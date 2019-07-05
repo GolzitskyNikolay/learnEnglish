@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Learn English </string>
+    <string name="learn_words">Учить слова </string>
+    <string name="test">Тест</string>
+    <string name="dictionary">Словарь</string>
+    <string name="my_words">Мои слова</string>
+    <string name="settings">Настройки</string>
+    <string name="learn_words_name">Учим слова</string>
+    <string name="word">Слово </string>
+    <string name="translate"> Word  </string>
+    <string name="next_word">Дальше</string>
+    <string name="count_of_words">Выберите сколько слов вам удобно изучать в день:</string>
+</resources>

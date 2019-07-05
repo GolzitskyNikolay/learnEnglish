@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/name2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:background="@color/darkBlue"
+        android:textColor="#ffffff"
+        android:text="@string/learn_words_name"
+        android:drawableTop="@drawable/eng4" />
+
+    <TextView
+        android:id="@+id/word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_below="@id/name2"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/show_translate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:layout_below="@id/word"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/next_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/button_background"
+        android:layout_below="@id/show_translate"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/learn_words"
+        android:text="@string/next_word"
+        android:textSize="16sp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/next_word"
+        android:scaleType="fitCenter"
+        android:src="@drawable/eng3" />
+
+</RelativeLayout>
