@@ -2,39 +2,36 @@ package com.example.learnenglish;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TextView;
 
-
-import static com.example.learnenglish.MainActivity.*;
+import static com.example.learnenglish.MainActivity.database;
 
 public class LearnWords extends Activity implements View.OnClickListener {
 
-    private TextView showWord;
-    private TextView showTranslate;
+    private TextView showRusWord;
+    private TextView showEngWord;
     SharedPreferences preferences;
+    TextView nextWord;
+    Settings settings;
+    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_words);
 
-        showWord = findViewById(R.id.word);
-        showTranslate = findViewById(R.id.show_translate);
-        TextView nextWord = findViewById(R.id.next_word);
+        showRusWord = findViewById(R.id.word);
+        showEngWord = findViewById(R.id.show_translate);
+        nextWord = findViewById(R.id.next_word);
+        settings = new Settings();
+        cursor = database.getUnlearnedWords();
 
-        //ссылаемся на объект, который может быть использован для чтения и записи
-        //в файл настроек по умолчанию
-        preferences = PreferenceManager.getDefaultSharedPreferences(LearnWords.this);
-
-        //по умолчанию при открытии этого активити будет показываться
-        // последнее невыученное слово
-        showWord.setText(preferences.getString(
-                "word", cursor.getString(1)));
-        showTranslate.setText(preferences.getString(
-                "translate", cursor.getString(2)));
+        showRusWord.setText(cursor.getString(1));
+        showEngWord.setText(cursor.getString(2));
 
         nextWord.setOnClickListener(this);
     }
@@ -42,16 +39,52 @@ public class LearnWords extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.next_word) {
-            cursor.moveToNext();
-            showWord.setText(cursor.getString(1));
-            showTranslate.setText(cursor.getString(2));
 
-            // создаём объект Editor для записи в файл настроек
+            //СЃСЃС‹Р»Р°РµРјСЃСЏ РЅР° РѕР±СЉРµРєС‚, РєРѕС‚РѕСЂС‹Р№ РјРѕР¶РµС‚ Р±С‹С‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅ РґР»СЏ С‡С‚РµРЅРёСЏ Рё Р·Р°РїРёСЃРё
+            //РІ С„Р°Р№Р» РЅР°СЃС‚СЂРѕРµРє РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+            preferences = PreferenceManager.getDefaultSharedPreferences(LearnWords.this);
+
+            // РїРѕР»СѓС‡Р°РµРј id СЃР»РѕРІР°, С‡С‚РѕР±С‹ РїРѕРјРµС‚РёС‚СЊ СЃР»РѕРІРѕ РїСЂРѕС‡С‚С‘РЅРЅС‹Рј
+            int id = database.getRusByEng(String.valueOf(showEngWord.getText())).getInt(0);
+            database.changeLearned(id, String.valueOf(showEngWord.getText()),
+                    String.valueOf(showRusWord.getText()), "almost");
+
+            // РєРѕР»РёС‡РµСЃС‚РІРѕ СЃР»РѕРІ, РєРѕС‚РѕСЂС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓС‡РёР» Р·Р° РґРµРЅСЊ
+            int currentCountOfWords = preferences.getInt("currentCountOfWords", 0);
+            currentCountOfWords++;
+
+            int countOfWordsInDay = preferences.getInt("countOfWordsInDay", 5);
+
+            // СЃРѕР·РґР°С‘Рј РѕР±СЉРµРєС‚ Editor РґР»СЏ Р·Р°РїРёСЃРё РІ С„Р°Р№Р» РЅР°СЃС‚СЂРѕРµРє
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("word", cursor.getString(1));
-            editor.putString("translate", cursor.getString(2));
-            //сохраняем все добавленные пары
+
+            //РєРѕР»РёС‡РµСЃС‚РІРѕ СЃР»РѕРІ РІ РґРµРЅСЊ РЅРµ РґРѕСЃС‚РёРіРЅСѓС‚Рѕ, РїСЂРѕРґРѕР»Р¶Р°РµРј РёР·СѓС‡РµРЅРёРµ
+            if (currentCountOfWords < countOfWordsInDay) {
+                cursor.moveToNext();
+                showRusWord.setText(cursor.getString(1));
+                showEngWord.setText(cursor.getString(2));
+
+                editor.putString("word", cursor.getString(1));
+                editor.putString("translate", cursor.getString(2));
+            } else {
+                //РѕРіСЂР°РЅРёС‡РµРЅРёРµ РЅР° РёР·СѓС‡РµРЅРёРµ РґРѕ РєРѕРЅС†Р° РґРЅСЏ
+                currentCountOfWords = 0;
+                showRusWord.setText("");
+                showEngWord.setText("");
+                findViewById(R.id.show_recommendation).setVisibility(View.VISIBLE);
+                nextWord.setVisibility(View.INVISIBLE);
+            }
+            editor.putInt("currentCountOfWords", currentCountOfWords);
+            //СЃРѕС…СЂР°РЅСЏРµРј РІСЃРµ РґРѕР±Р°РІР»РµРЅРЅС‹Рµ РїР°СЂС‹
             editor.apply();
         }
+    }
+
+    void saveSettingsForLearnWords(int countOfWordsInDay) {
+        SharedPreferences preferences = PreferenceManager.
+                getDefaultSharedPreferences(LearnWords.this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("countOfWordsInDay", countOfWordsInDay);
+        editor.apply();
     }
 }

@@ -2,8 +2,10 @@ package com.example.learnenglish;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 
 import java.io.*;
@@ -29,15 +31,33 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // которые показывают выучены слова или нет
         database = new Database(this);
 
-        // если база данных пустая, то заполняем её
-        if (database.getAllWords().getCount() == 0) {
-            try {
-                addInDataBase(database);
-            } catch (IOException e) {
-                e.printStackTrace();
+        //ссылаемся на объект, который может быть использован для чтения и записи
+        //в файл настроек по умолчанию
+        SharedPreferences myPreferences
+                = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+
+        int createDatabaseOrNot = myPreferences.getInt("createDatabaseOrNot", 1);
+
+        if (createDatabaseOrNot == 1) {
+            database.dropTable();
+            database.createDatabase();
+
+            // заполняем базу данных
+            if (database.getAllWords().getCount() == 0) {
+                try {
+                    addInDataBase(database);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+            // создаём объект Editor для записи в файл настроек
+            SharedPreferences.Editor editor = myPreferences.edit();
+            editor.putInt("createDatabaseOrNot", 0);
+            //сохраняем
+            editor.apply();
         }
-        cursor = database.getAllWords();
+        cursor = database.getUnlearnedWords();
         cursor.moveToFirst();
     }
 
@@ -53,11 +73,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         BufferedReader bufferedReader =
                 new BufferedReader(new InputStreamReader(fileInputStream));
 
-        String line = bufferedReader.readLine();
+        String line = bufferedReader.readLine().toLowerCase();
 
         while (line != null) {
             List<String> list = new ArrayList<>(Arrays.asList(line.split("<>")));
-            database.addWord(list.get(0), list.get(1), false);
+            database.addWord(list.get(0), list.get(1), "no");
             line = bufferedReader.readLine();
         }
         bufferedReader.close();

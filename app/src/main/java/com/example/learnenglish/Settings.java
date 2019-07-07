@@ -29,10 +29,10 @@ public class Settings extends Activity {
         //ссылаемся на объект, который может быть использован для чтения и записи
         //в файл настроек по умолчанию
         myPreferences = PreferenceManager.getDefaultSharedPreferences(Settings.this);
+        int count = myPreferences.getInt("count of words", 5);
 
-        int count = myPreferences.getInt("count of words", 1);
-        textView.setText(String.valueOf(count + 1));
-        seekBar.setProgress(count);
+        textView.setText(String.valueOf(count));
+        seekBar.setProgress(count - 1);
         seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
     }
 
@@ -52,7 +52,7 @@ public class Settings extends Activity {
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     // создаём объект Editor для записи в файл настроек
                     SharedPreferences.Editor editor = myPreferences.edit();
-                    editor.putInt("count of words", seekBar.getProgress());
+                    editor.putInt("count of words", seekBar.getProgress() + 1);
                     //сохраняем все добавленные пары
                     editor.apply();
                 }

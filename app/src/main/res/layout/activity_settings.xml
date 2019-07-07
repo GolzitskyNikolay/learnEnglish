@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/darkBlue"
-        android:drawableTop="@drawable/eng4"
+        android:drawableTop="@drawable/logo"
         android:gravity="center"
         android:text="@string/settings"
         android:textColor="#ffffff"
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_with_seekBar"
                 android:scaleType="fitStart"
-                android:src="@drawable/city2" />
+                android:src="@drawable/settings_city" />
 
         </RelativeLayout>
     </ScrollView>
