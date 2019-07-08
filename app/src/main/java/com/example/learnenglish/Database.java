@@ -7,24 +7,24 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-// SQLiteOpenHelper - абстрактный класс, с помощью которого можно создавать, открывать
-// и обновлять базы данных.
+// SQLiteOpenHelper - Р°Р±СЃС‚СЂР°РєС‚РЅС‹Р№ РєР»Р°СЃСЃ, СЃ РїРѕРјРѕС‰СЊСЋ РєРѕС‚РѕСЂРѕРіРѕ РјРѕР¶РЅРѕ СЃРѕР·РґР°РІР°С‚СЊ, РѕС‚РєСЂС‹РІР°С‚СЊ
+// Рё РѕР±РЅРѕРІР»СЏС‚СЊ Р±Р°Р·С‹ РґР°РЅРЅС‹С….
 class Database extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "dictionary.db";
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_TABLE = "table1";
 
-    // поля таблицы для хранения СЛОВА, его ПЕРЕВОДА, ФЛАГА, который показывает
-    // изучено слово или нет, и ID, который формируется автоматически
+    // РїРѕР»СЏ С‚Р°Р±Р»РёС†С‹ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РЎР›РћР’Рђ, РµРіРѕ РџР•Р Р•Р’РћР”Рђ, Р¤Р›РђР“Рђ, РєРѕС‚РѕСЂС‹Р№ РїРѕРєР°Р·С‹РІР°РµС‚
+    // РёР·СѓС‡РµРЅРѕ СЃР»РѕРІРѕ РёР»Рё РЅРµС‚, Рё ID, РєРѕС‚РѕСЂС‹Р№ С„РѕСЂРјРёСЂСѓРµС‚СЃСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_ENG_WORD = "WORD";
     public static final String COLUMN_RUS_TRANSLATE = "TRANSLATE";
 
-    // Может принимать 3 значения: "no", "almost" и "yes"
+    // РњРѕР¶РµС‚ РїСЂРёРЅРёРјР°С‚СЊ 3 Р·РЅР°С‡РµРЅРёСЏ: "no", "almost" Рё "yes"
     public static final String COLUMN_LEARNED = "LEARNED";
 
-    // формируем запрос для создания базы данных
+    // С„РѕСЂРјРёСЂСѓРµРј Р·Р°РїСЂРѕСЃ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ Р±Р°Р·С‹ РґР°РЅРЅС‹С…
     private static final String DATABASE_CREATE = "create table "
             + DATABASE_TABLE + "(" + COLUMN_ID + " integer primary key autoincrement, "
             + COLUMN_ENG_WORD + " text not null, " + COLUMN_RUS_TRANSLATE + " text not null,"
@@ -40,19 +40,14 @@ class Database extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-    void dropTable() {
-        SQLiteDatabase database = this.getWritableDatabase();
-        database.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
-    }
-
     @Override
     public void onCreate(SQLiteDatabase database) {
-        //создаем таблицу
+        //СЃРѕР·РґР°РµРј С‚Р°Р±Р»РёС†Сѓ
         database.execSQL(DATABASE_CREATE);
     }
 
     /*
-     * Описываем структуру для данных, которые добавляем (для 1 строки в таблице)
+     * РћРїРёСЃС‹РІР°РµРј СЃС‚СЂСѓРєС‚СѓСЂСѓ РґР»СЏ РґР°РЅРЅС‹С…, РєРѕС‚РѕСЂС‹Рµ РґРѕР±Р°РІР»СЏРµРј (РґР»СЏ 1 СЃС‚СЂРѕРєРё РІ С‚Р°Р±Р»РёС†Рµ)
      */
     private ContentValues createContentValues(String word, String translate, String learned) {
         ContentValues values = new ContentValues();
@@ -69,8 +64,8 @@ class Database extends SQLiteOpenHelper {
     }
 
     /**
-     * Добавляем слово и перевод. Если добавили успешно, то возвращается
-     * номер строки rowId, иначе -1
+     * Р”РѕР±Р°РІР»СЏРµРј СЃР»РѕРІРѕ Рё РїРµСЂРµРІРѕРґ. Р•СЃР»Рё РґРѕР±Р°РІРёР»Рё СѓСЃРїРµС€РЅРѕ, С‚Рѕ РІРѕР·РІСЂР°С‰Р°РµС‚СЃСЏ
+     * РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё rowId, РёРЅР°С‡Рµ -1
      */
     public long addWord(String engWord, String rusTranslate, String learned) {
         SQLiteDatabase database = this.getWritableDatabase();
@@ -83,7 +78,7 @@ class Database extends SQLiteOpenHelper {
     }
 
     /**
-     * Изменение строки
+     * РР·РјРµРЅРµРЅРёРµ СЃС‚СЂРѕРєРё
      */
     public boolean changeLearned(long rowId, String word, String translate, String learned) {
         SQLiteDatabase database = this.getWritableDatabase();
@@ -94,7 +89,7 @@ class Database extends SQLiteOpenHelper {
     }
 
     /**
-     * Удаление строки
+     * РЈРґР°Р»РµРЅРёРµ СЃС‚СЂРѕРєРё
      */
     public void deleteWord(long rowId) {
         SQLiteDatabase database = this.getWritableDatabase();
@@ -103,7 +98,7 @@ class Database extends SQLiteOpenHelper {
     }
 
     /**
-     * Получение всех слов
+     * РџРѕР»СѓС‡РµРЅРёРµ РІСЃРµС… СЃР»РѕРІ
      */
     public Cursor getAllWords() {
         SQLiteDatabase database = this.getWritableDatabase();
@@ -148,8 +143,17 @@ class Database extends SQLiteOpenHelper {
         return mCursor;
     }
 
+    Cursor hasWordAndTranslate(String rus, String eng){
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor mCursor = database.query(DATABASE_TABLE, new String[]{COLUMN_ID,
+                        COLUMN_RUS_TRANSLATE, COLUMN_ENG_WORD, COLUMN_LEARNED},
+                COLUMN_RUS_TRANSLATE + " = ? AND " + COLUMN_ENG_WORD + " = ?",
+                new String[]{rus, eng}, null, null, null);
+        return mCursor;
+    }
+
     /**
-     * Получаем слово по id
+     * РџРѕР»СѓС‡Р°РµРј СЃР»РѕРІРѕ РїРѕ id
      */
     public Cursor getWordById(long rowId) throws SQLException {
         SQLiteDatabase database = this.getReadableDatabase();
@@ -164,13 +168,13 @@ class Database extends SQLiteOpenHelper {
     }
 
     /**
-     * Получаем русское слово по английскому
+     * РџРѕР»СѓС‡Р°РµРј СЂСѓСЃСЃРєРѕРµ СЃР»РѕРІРѕ РїРѕ Р°РЅРіР»РёР№СЃРєРѕРјСѓ
      */
     public Cursor getRusByEng(String engWord) throws SQLException {
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor mCursor = database.query(DATABASE_TABLE, new String[]{COLUMN_ID,
                         COLUMN_ENG_WORD, COLUMN_RUS_TRANSLATE, COLUMN_LEARNED},
-                COLUMN_ENG_WORD + " = ?", new String[]{engWord.toLowerCase()},
+                COLUMN_ENG_WORD + " like ?", new String[]{engWord.toLowerCase()},
                 null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -179,13 +183,13 @@ class Database extends SQLiteOpenHelper {
     }
 
     /**
-     * Получаем английское слово по русскому
+     * РџРѕР»СѓС‡Р°РµРј Р°РЅРіР»РёР№СЃРєРѕРµ СЃР»РѕРІРѕ РїРѕ СЂСѓСЃСЃРєРѕРјСѓ
      */
     public Cursor getEngByRus(String rusWord) throws SQLException {
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor mCursor = database.query(DATABASE_TABLE, new String[]{COLUMN_ID,
                         COLUMN_RUS_TRANSLATE, COLUMN_ENG_WORD, COLUMN_LEARNED},
-                COLUMN_RUS_TRANSLATE + " = ?", new String[]{rusWord.toLowerCase()},
+                COLUMN_RUS_TRANSLATE + " like ?", new String[]{rusWord.toLowerCase()},
                 null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();

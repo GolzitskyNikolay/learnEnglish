@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/name_myWords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkBlue"
+        android:drawableTop="@drawable/logo"
+        android:gravity="center"
+        android:text="@string/my_words"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name_myWords"
+        android:layout_centerHorizontal="true"
+        android:scrollbars="none">
+
+        <TextView
+            android:id="@+id/all_my_words"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/words_myWords"
+            android:textSize="20sp" />
+
+    </ScrollView>
+
+</RelativeLayout>

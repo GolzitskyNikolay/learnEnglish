@@ -16,8 +16,9 @@
     <string name="button_dictionary">Перевести</string>
     <string name="ruOrEng">Выберите на каком языке вы вводите слово:</string>
     <string name="enter">Введите слово</string>
-    <string name="recommendation">На сегодня рекомендованное количество слов к изучению достигнуто,
-        если вы хотите увелить его, то сделайте это в настройках.</string>
+    <string name="recommendation">На сегодня количество слов к изучению достигнуто,
+        если вы хотите увеличить его, то сделайте это в настройках. А чтобы убедиться в том,
+        что вы выучили слова - пройдите тест.</string>
     <string name="words_myWords">У вас нет выученных слов</string>
     <string name="test_1st_text">Введите перевод слова:</string>
     <string name="check">Проверить</string>

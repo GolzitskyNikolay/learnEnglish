@@ -9,11 +9,13 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ExampleUnitTest {
+public class TestWordsForDictionary {
     @Test
     public void addition_isCorrect() {
         ForWords forWords = new ForWords();
         forWords.createSeparate();
+
+        // ^_^
         assertEquals(4, 2 + 2);
     }
 }

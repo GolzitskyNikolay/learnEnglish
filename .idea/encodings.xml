@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8" addBOMForNewFiles="with NO BOM">
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/learnenglish/Database.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/learnenglish/Database.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/learnenglish/Dictionary.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/learnenglish/LearnWords.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/learnenglish/MainActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/learnenglish/MyWords.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/learnenglish/SplashScreen.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/learnenglish/Test.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/raw/all_words.txt" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/raw/dictionary.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/enrus.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/to_sort_it.txt" charset="UTF-8" />
     <file url="PROJECT" charset="windows-1251" />
   </component>
 </project>

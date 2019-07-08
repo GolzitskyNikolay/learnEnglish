@@ -5,8 +5,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import static com.example.learnenglish.MainActivity.*;
-
 public class MyWords extends Activity {
 
     @Override
@@ -14,7 +12,7 @@ public class MyWords extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_words);
 
-        Cursor cursor = database.getLearnedWords();
+        Cursor cursor = new Database(this).getLearnedWords();
         cursor.moveToFirst();
 
         // добавляем в изученные слова новые

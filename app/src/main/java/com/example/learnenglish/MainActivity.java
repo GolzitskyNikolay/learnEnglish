@@ -3,7 +3,6 @@ package com.example.learnenglish;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -12,9 +11,6 @@ import java.io.*;
 import java.util.*;
 
 public class MainActivity extends Activity implements View.OnClickListener {
-
-    static Database database;
-    static Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,26 +25,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         // создаём базу данных, которая хранит в себе все слова, их перевод и флаги,
         // которые показывают выучены слова или нет
-        database = new Database(this);
+        Database database = new Database(this);
 
         //ссылаемся на объект, который может быть использован для чтения и записи
         //в файл настроек по умолчанию
-        SharedPreferences myPreferences
-                = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         int createDatabaseOrNot = myPreferences.getInt("createDatabaseOrNot", 1);
 
         if (createDatabaseOrNot == 1) {
-            database.dropTable();
             database.createDatabase();
 
             // заполняем базу данных
-            if (database.getAllWords().getCount() == 0) {
-                try {
-                    addInDataBase(database);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                addInDataBase(database);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
             // создаём объект Editor для записи в файл настроек
@@ -57,8 +49,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             //сохраняем
             editor.apply();
         }
-        cursor = database.getUnlearnedWords();
-        cursor.moveToFirst();
     }
 
     /**
@@ -69,14 +59,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
     void addInDataBase(Database database) throws IOException {
 
         InputStream fileInputStream =
-                this.getResources().openRawResource(R.raw.dictionary);
+                this.getResources().openRawResource(R.raw.dictionary2);
         BufferedReader bufferedReader =
                 new BufferedReader(new InputStreamReader(fileInputStream));
 
         String line = bufferedReader.readLine().toLowerCase();
 
+        List<String> list;
+
         while (line != null) {
-            List<String> list = new ArrayList<>(Arrays.asList(line.split("<>")));
+            list = new ArrayList<>(Arrays.asList(line.split("#")));
             database.addWord(list.get(0), list.get(1), "no");
             line = bufferedReader.readLine();
         }

@@ -10,19 +10,20 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.*;
 
-import static com.example.learnenglish.MainActivity.database;
-
 public class Dictionary extends Activity implements View.OnClickListener {
 
     EditText word;
     TextView translate;
     Animation animation;
+    Database database;
+    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dictionary);
 
+        database = new Database(this);
         word = findViewById(R.id.word_dictionary);
         translate = findViewById(R.id.translate_dictionary);
         animation = AnimationUtils.loadAnimation(this, R.anim.anim_incorrect_enter);
@@ -52,23 +53,14 @@ public class Dictionary extends Activity implements View.OnClickListener {
             translate.setTextColor(getResources().getColor(R.color.darkBlue));
 
             String string = String.valueOf(word.getText());
-            Cursor cursor;
 
             //ищем перевод слова в базе данных
             if (string.toLowerCase().matches(" *[a-z]+([ |\\-][a-z]+)*")) {
                 cursor = database.getRusByEng(string);
-                if (cursor.getCount() != 0) {
-                    translate.setText(cursor.getString(2));
-                } else {
-                    translate.setText("Такого слова\nв словаре нет!");
-                }
+                showTranslate();
             } else if (string.toLowerCase().matches(" *[а-я|ё]+([ |\\-][а-я|ё]+)*")) {
                 cursor = database.getEngByRus(string);
-                if (cursor.getCount() != 0) {
-                    translate.setText(cursor.getString(2));
-                } else {
-                    translate.setText("Такого слова\nв словаре нет!\n:\\");
-                }
+                showTranslate();
             } else if (string.matches(" *")) {
                 translate.setText("Введите слово!");
                 // подключаем файл анимации
@@ -79,6 +71,21 @@ public class Dictionary extends Activity implements View.OnClickListener {
                 translate.startAnimation(animation);
                 translate.setTextColor(getResources().getColor(R.color.colorAccent));
             }
+        }
+    }
+
+    void showTranslate() {
+        if (cursor.getCount() != 0) {
+            cursor.moveToFirst();
+            StringBuilder showTranslate = new StringBuilder();
+            while (cursor.getPosition() < cursor.getCount()) {
+                showTranslate.append(cursor.getString(2));
+                showTranslate.append("; ");
+                cursor.moveToNext();
+            }
+            translate.setText(showTranslate);
+        } else {
+            translate.setText("Такого слова\nв словаре нет!");
         }
     }
 }

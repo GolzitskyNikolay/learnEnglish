@@ -7,9 +7,9 @@ class ForWords {
 
     void createSeparate() {
         File input = new File("C:\\Users\\1\\AndroidStudioProjects\\learnEnglish" +
-                "\\app\\src\\main\\res\\raw\\all_words.txt");
+                "\\app\\src\\main\\res\\raw\\to_sort_it.txt");
         File output = new File("C:\\Users\\1\\AndroidStudioProjects\\learnEnglish" +
-                "\\app\\src\\main\\res\\raw\\dictionary.txt");
+                "\\app\\src\\main\\res\\raw\\dictionary2.txt");
 
         try {
             FileReader fileReader = new FileReader(input);
@@ -19,34 +19,38 @@ class ForWords {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
             String line = bufferedReader.readLine();
+            int t = 1;
             while (line != null) {
-                if (!line.equals("")) {
-                    StringBuilder newLine = new StringBuilder();
-                    List<String> list = new ArrayList<>(
-                            Arrays.asList(line.split("\\s+|\\t+|\\n")));
-                    list.remove("");
-                    boolean hasSeparator = false;
-                    for (int i = 1; i <= list.size(); i++) {
-                        String partOfString = list.get(i - 1);
-                        if (partOfString.matches("[A-Z]?-*([a-z]-*)*")) {
-                            if (i != 1) {
-                                newLine.append(" ");
-                            }
-                            newLine.append(partOfString);
-                        } else {
-                            if (!hasSeparator) {
-                                newLine.append("<>");
-                                hasSeparator = true;
-                            } else {
-                                newLine.append(" ");
-                            }
-                            newLine.append(partOfString);
-                        }
+
+                List<String> eng_rus = new ArrayList<>(Arrays.asList(line.split("#")));
+
+                System.out.println(t);
+                StringBuilder stringBuilder = new StringBuilder();
+                List<String> left = new ArrayList<>
+                        (Arrays.asList(eng_rus.get(0).split(" |[(.+) *]")));
+                left.remove("");
+                for (int i = 0; i < left.size(); i++) {
+                    stringBuilder.append(left.get(i));
+                    if (i < left.size() - 1){
+                        stringBuilder.append(" ");
                     }
-                    newLine.append("\n");
-                    bufferedWriter.write(newLine.toString());
                 }
+                stringBuilder.append("#");
+                List<String> right = new ArrayList<>
+                        (Arrays.asList(eng_rus.get(1).split(" |[(.+) *]")));
+                left.remove("");
+                for (int i = 0; i < right.size(); i++) {
+                    stringBuilder.append(right.get(i));
+                    if (i < right.size() - 1){
+                        stringBuilder.append(" ");
+                    }
+                }
+                if (stringBuilder.toString().toLowerCase().matches("[a-z]+#.*")) {
+                    bufferedWriter.write(stringBuilder + "\n");
+                }
+
                 line = bufferedReader.readLine();
+                t++;
             }
             bufferedReader.close();
             bufferedWriter.close();

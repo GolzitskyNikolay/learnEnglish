@@ -28,7 +28,7 @@ public class Settings extends Activity {
 
         //ссылаемся на объект, который может быть использован для чтения и записи
         //в файл настроек по умолчанию
-        myPreferences = PreferenceManager.getDefaultSharedPreferences(Settings.this);
+        myPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         int count = myPreferences.getInt("count of words", 5);
 
         textView.setText(String.valueOf(count));

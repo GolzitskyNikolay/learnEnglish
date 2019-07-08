@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import static com.example.learnenglish.MainActivity.database;
-
 public class Test extends Activity implements View.OnClickListener {
 
     TextView word;
@@ -21,6 +19,7 @@ public class Test extends Activity implements View.OnClickListener {
     Button button;
     Cursor cursor;
     Animation animation;
+    Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +30,7 @@ public class Test extends Activity implements View.OnClickListener {
         translate = findViewById(R.id.test_translate);
         button = findViewById(R.id.test_button);
 
+        database = new Database(this);
         cursor = database.getAlmostLearnedWords();
         animation = AnimationUtils.loadAnimation(this, R.anim.anim_incorrect_enter);
 
