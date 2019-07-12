@@ -1,4 +1,4 @@
-package com.study.learnenglish;
+package com.example.learnenglish;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -29,6 +29,7 @@ public class Dictionary extends Activity implements View.OnClickListener {
         animation = AnimationUtils.loadAnimation(this, R.anim.anim_incorrect_enter);
 
         findViewById(R.id.button_dictionary).setOnClickListener(this);
+        findViewById(R.id.back_button_dictionary).setOnClickListener(this);
         word.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -54,23 +55,25 @@ public class Dictionary extends Activity implements View.OnClickListener {
 
             String string = String.valueOf(word.getText());
 
-            //ищем перевод слова в базе данных
+            //ищем перевод слова в базе данных, если оно введено корректно
             if (string.toLowerCase().matches(" *[a-z]+([ |\\-][a-z]+)*")) {
                 cursor = database.getRusByEng(string);
                 showTranslate();
             } else if (string.toLowerCase().matches(" *[а-я|ё]+([ |\\-][а-я|ё]+)*")) {
                 cursor = database.getEngByRus(string);
                 showTranslate();
-            } else if (string.matches(" *")) {
-                translate.setText("Введите слово!");
+            } else {
+                if (string.matches(" *")) {
+                    translate.setText("Введите слово!");
+                } else {
+                    translate.setText("Слово введено\n  некорректно!");
+                }
                 // подключаем файл анимации
                 translate.startAnimation(animation);
                 translate.setTextColor(getResources().getColor(R.color.colorAccent));
-            } else {
-                translate.setText("Слово введено\n  некорректно!");
-                translate.startAnimation(animation);
-                translate.setTextColor(getResources().getColor(R.color.colorAccent));
             }
+        } else if (v.getId() == R.id.back_button_dictionary){
+            finish();
         }
     }
 

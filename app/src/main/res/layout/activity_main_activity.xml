@@ -44,7 +44,7 @@
 
     <Button
         android:id="@+id/learn_words"
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/name"
         android:layout_centerHorizontal="true"

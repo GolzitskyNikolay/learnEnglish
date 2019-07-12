@@ -1,4 +1,4 @@
-package com.study.learnenglish;
+package com.example.learnenglish;
 
 import java.io.*;
 import java.util.*;

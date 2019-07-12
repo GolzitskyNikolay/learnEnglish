@@ -1,4 +1,4 @@
-package com.study.learnenglish;
+package com.example.learnenglish;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -33,6 +33,8 @@ public class Test extends Activity implements View.OnClickListener {
         database = new Database(this);
         cursor = database.getKindWords("almost");
         animation = AnimationUtils.loadAnimation(this, R.anim.anim_incorrect_enter);
+        findViewById(R.id.back_button_test).setOnClickListener(this);
+        findViewById(R.id.end).setVisibility(View.INVISIBLE);
 
         // если пользователь уже пытался учить слова
         if (cursor.getCount() != 0) {
@@ -82,6 +84,8 @@ public class Test extends Activity implements View.OnClickListener {
                 translate.startAnimation(animation);
                 showWords();
             }
+        } else if (v.getId() == R.id.back_button_test) {
+            finish();
         }
     }
 
@@ -93,8 +97,8 @@ public class Test extends Activity implements View.OnClickListener {
         } else {
             translate.setVisibility(View.INVISIBLE);
             button.setVisibility(View.INVISIBLE);
-            word.setText("Слова закончились!\nЧтобы провести тест\nвыучите новые слова" +
-                    "\nили повторите невыученные!\n^_^");
+            word.setVisibility(View.INVISIBLE);
+            findViewById(R.id.end).setVisibility(View.VISIBLE);
         }
     }
 }

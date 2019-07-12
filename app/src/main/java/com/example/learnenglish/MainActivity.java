@@ -1,4 +1,4 @@
-package com.study.learnenglish;
+package com.example.learnenglish;
 
 import android.app.Activity;
 import android.content.Intent;

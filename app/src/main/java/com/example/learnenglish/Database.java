@@ -1,4 +1,4 @@
-package com.study.learnenglish;
+package com.example.learnenglish;
 
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.ContentValues;
@@ -63,8 +63,8 @@ class Database extends SQLiteOpenHelper {
 
     /**
      * Создает пустую базу данных и перезаписывает ее базой из assets
-     * */
-    void crateDatabaseInAndroid(){
+     */
+    void crateDatabaseInAndroid() {
         //вызывая этот метод создаем пустую базу, позже она будет перезаписана
         this.getReadableDatabase();
         try {
@@ -74,7 +74,7 @@ class Database extends SQLiteOpenHelper {
         }
     }
 
-    void openDataBase() throws SQLException{
+    void openDataBase() throws SQLException {
         //открываем БД
         String myPath = DATABASE_PATH + DATABASE_NAME;
         database = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
@@ -83,7 +83,7 @@ class Database extends SQLiteOpenHelper {
     /**
      * Копирует базу из папки assets заместо созданной локальной БД
      * Выполняется путем копирования потока байтов.
-     * */
+     */
     private void copyDataBase() throws IOException {
         //Открываем БД из assets как входящий поток
         InputStream myInput = mContext.getAssets().open(DATABASE_NAME);
@@ -97,7 +97,7 @@ class Database extends SQLiteOpenHelper {
         //перемещаем байты из входящего файла в исходящий
         byte[] buffer = new byte[1024];
         int length;
-        while ((length = myInput.read(buffer))>0){
+        while ((length = myInput.read(buffer)) > 0) {
             myOutput.write(buffer, 0, length);
         }
 

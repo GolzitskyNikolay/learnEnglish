@@ -1,11 +1,12 @@
-package com.study.learnenglish;
+package com.example.learnenglish;
 
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
-public class MyWords extends Activity {
+public class MyWords extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,14 @@ public class MyWords extends Activity {
                 cursor.moveToNext();
             }
             view.setText(newText);
+        }
+        findViewById(R.id.back_button_myWords).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.back_button_myWords){
+            finish();
         }
     }
 }

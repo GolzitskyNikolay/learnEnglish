@@ -1,4 +1,4 @@
-package com.study.learnenglish;
+package com.example.learnenglish;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -6,10 +6,11 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class Settings extends Activity {
+public class Settings extends Activity implements View.OnClickListener {
 
     private TextView textView;
     private SharedPreferences myPreferences;
@@ -20,6 +21,7 @@ public class Settings extends Activity {
         setContentView(R.layout.activity_settings);
 
         textView = findViewById(R.id.text_with_seekBar);
+        findViewById(R.id.back_button_settings).setOnClickListener(this);
 
         SeekBar seekBar = findViewById(R.id.seek_bar);
         //меняем цвет полоски
@@ -58,5 +60,11 @@ public class Settings extends Activity {
                 }
             };
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.back_button_settings) {
+            finish();
+        }
+    }
 }
 

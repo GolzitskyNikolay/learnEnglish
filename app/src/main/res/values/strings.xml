@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Learn English </string>
-    <string name="learn_words">Учить слова </string>
-    <string name="test">Тест</string>
-    <string name="dictionary">Словарь</string>
+    <string name="learn_words">Учить слова\t</string>
+    <string name="test">Тест\t\t</string>
+    <string name="dictionary">Словарь\t</string>
     <string name="my_words">Мои слова</string>
     <string name="settings">Настройки</string>
     <string name="learn_words_name">Учим слова</string>
@@ -24,4 +24,8 @@
     <string name="check">Проверить</string>
     <string name="enter_translate">Введите перевод</string>
     <string name="test_begin">Вы пока что не учили слова, чтобы сделать это зайдите в раздел \"Учить слова\"</string>
+    <string name="name_dictionary">Словарь</string>
+    <string name="settings_name">Настройки</string>
+    <string name="test_name">Тест</string>
+    <string name="end">Слова закончились!\nЧтобы провести тест\nвыучите новые слова\nили повторите невыученные!\n^_^</string>
 </resources>

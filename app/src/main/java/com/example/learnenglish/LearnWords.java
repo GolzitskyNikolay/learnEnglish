@@ -1,4 +1,4 @@
-package com.study.learnenglish;
+package com.example.learnenglish;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -14,15 +14,16 @@ import java.util.*;
 
 public class LearnWords extends Activity implements View.OnClickListener {
 
+    private TextView howManyWordsWatched;
+    private SharedPreferences preferences;
+    private int currentCountOfWords;
+    private int countOfWordsInDay;
     private TextView showRusWord;
     private TextView showEngWord;
-    SharedPreferences preferences;
-    int currentCountOfWords;
-    int countOfWordsInDay;
-    Database database;
-    TextView nextWord;
-    int currentDate;
-    Cursor cursor;
+    private Database database;
+    private TextView nextWord;
+    private int currentDate;
+    private Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class LearnWords extends Activity implements View.OnClickListener {
 
         showRusWord = findViewById(R.id.word);
         showEngWord = findViewById(R.id.show_translate);
+        howManyWordsWatched = findViewById(R.id.howManyWordsWatched);
         nextWord = findViewById(R.id.next_word);
         database = new Database(this);
 
@@ -54,16 +56,11 @@ public class LearnWords extends Activity implements View.OnClickListener {
         currentDate = Integer.parseInt(dateFormat.format(new Date()));
 
         if (currentCountOfWords < countOfWordsInDay) {
-            cursor = database.getKindWords("no");
-            showRusWord.setText(cursor.getString(1));
-            showEngWord.setText(cursor.getString(2));
+            showWordAndTranslate();
         } else if (currentDate > lastDateWhenEntered) {
             // наступил новый день => можно снова учить слова
             currentCountOfWords = 0;
-            cursor = database.getKindWords("no");
-            showRusWord.setText(cursor.getString(1));
-            showEngWord.setText(cursor.getString(2));
-
+            showWordAndTranslate();
         } else {
             //ограничение на изучение до конца дня
             showRusWord.setText("");
@@ -71,6 +68,7 @@ public class LearnWords extends Activity implements View.OnClickListener {
             findViewById(R.id.show_recommendation).setVisibility(View.VISIBLE);
             nextWord.setVisibility(View.INVISIBLE);
         }
+        findViewById(R.id.back_button_learnWords).setOnClickListener(this);
         nextWord.setOnClickListener(this);
     }
 
@@ -79,11 +77,11 @@ public class LearnWords extends Activity implements View.OnClickListener {
         if (v.getId() == R.id.next_word) {
 
             // получаем id слова, чтобы пометить слово прочтённым
-            int id = database.getRusByEng(String.valueOf(showEngWord.getText())).getInt(0);
+            int id = cursor.getInt(0);
             database.changeLearned(id, String.valueOf(showEngWord.getText()),
                     String.valueOf(showRusWord.getText()), "almost");
-
             currentCountOfWords++;
+            showHowManyWordsWatched();
 
             // создаём объект Editor для записи в файл настроек
             SharedPreferences.Editor editor = preferences.edit();
@@ -107,6 +105,23 @@ public class LearnWords extends Activity implements View.OnClickListener {
             editor.putInt("last date", currentDate);
             //сохраняем все добавленные пары
             editor.apply();
+        } else if (v.getId() == R.id.back_button_learnWords) {
+            finish();
         }
+    }
+
+    private void showWordAndTranslate() {
+        cursor = database.getKindWords("no");
+        showRusWord.setText(cursor.getString(1));
+        showEngWord.setText(cursor.getString(2));
+        showHowManyWordsWatched();
+    }
+
+    private void showHowManyWordsWatched() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(currentCountOfWords);
+        stringBuilder.append("/");
+        stringBuilder.append(countOfWordsInDay);
+        howManyWordsWatched.setText(stringBuilder);
     }
 }
