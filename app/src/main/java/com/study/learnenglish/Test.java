@@ -1,4 +1,4 @@
-package com.example.learnenglish;
+package com.study.learnenglish;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -31,7 +31,7 @@ public class Test extends Activity implements View.OnClickListener {
         button = findViewById(R.id.test_button);
 
         database = new Database(this);
-        cursor = database.getAlmostLearnedWords();
+        cursor = database.getKindWords("almost");
         animation = AnimationUtils.loadAnimation(this, R.anim.anim_incorrect_enter);
 
         // если пользователь уже пытался учить слова

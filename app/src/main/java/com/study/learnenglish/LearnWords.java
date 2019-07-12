@@ -1,4 +1,4 @@
-package com.example.learnenglish;
+package com.study.learnenglish;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -54,13 +54,13 @@ public class LearnWords extends Activity implements View.OnClickListener {
         currentDate = Integer.parseInt(dateFormat.format(new Date()));
 
         if (currentCountOfWords < countOfWordsInDay) {
-            cursor = database.getUnlearnedWords();
+            cursor = database.getKindWords("no");
             showRusWord.setText(cursor.getString(1));
             showEngWord.setText(cursor.getString(2));
         } else if (currentDate > lastDateWhenEntered) {
             // наступил новый день => можно снова учить слова
             currentCountOfWords = 0;
-            cursor = database.getUnlearnedWords();
+            cursor = database.getKindWords("no");
             showRusWord.setText(cursor.getString(1));
             showEngWord.setText(cursor.getString(2));
 
@@ -108,13 +108,5 @@ public class LearnWords extends Activity implements View.OnClickListener {
             //сохраняем все добавленные пары
             editor.apply();
         }
-    }
-
-    void saveSettingsForLearnWords(int countOfWordsInDay) {
-        SharedPreferences preferences = PreferenceManager.
-                getDefaultSharedPreferences(LearnWords.this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt("countOfWordsInDay", countOfWordsInDay);
-        editor.apply();
     }
 }

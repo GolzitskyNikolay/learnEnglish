@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.learnenglish">
+    package="com.study.learnenglish">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:theme="@style/BlueTheme">
 
         <activity
-            android:name=".SplashScreen"
+            android:name="com.study.learnenglish.SplashScreen"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,17 +18,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.study.learnenglish.MainActivity" />
 
-        <activity android:name=".LearnWords" />
+        <activity android:name="com.study.learnenglish.LearnWords" />
 
-        <activity android:name=".Test" />
+        <activity android:name="com.study.learnenglish.Test" />
 
-        <activity android:name=".MyWords" />
+        <activity android:name="com.study.learnenglish.MyWords" />
 
-        <activity android:name=".Dictionary" />
+        <activity android:name="com.study.learnenglish.Dictionary" />
 
-        <activity android:name=".Settings" />
+        <activity android:name="com.study.learnenglish.Settings" />
 
     </application>
 

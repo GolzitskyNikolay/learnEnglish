@@ -1,4 +1,4 @@
-package com.example.learnenglish;
+package com.study.learnenglish;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,10 +23,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.dictionary).setOnClickListener(this);
         findViewById(R.id.settings).setOnClickListener(this);
 
-        // создаём базу данных, которая хранит в себе все слова, их перевод и флаги,
-        // которые показывают выучены слова или нет
-        Database database = new Database(this);
-
         //ссылаемся на объект, который может быть использован для чтения и записи
         //в файл настроек по умолчанию
         SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -34,14 +30,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int createDatabaseOrNot = myPreferences.getInt("createDatabaseOrNot", 1);
 
         if (createDatabaseOrNot == 1) {
-            database.createDatabase();
-
-            // заполняем базу данных
-            try {
-                addInDataBase(database);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Database database = new Database(this);
+            database.crateDatabaseInAndroid();
+            database.openDataBase();
 
             // создаём объект Editor для записи в файл настроек
             SharedPreferences.Editor editor = myPreferences.edit();
@@ -56,10 +47,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
      * Для более быстрой работы приложения создаётся база данных, которая
      * сохраняет в себя слова с переводом из исходного файла со словами "dictionary".
      */
-    void addInDataBase(Database database) throws IOException {
+    void addInDataBase() throws IOException {
+
+        // создаём базу данных, которая хранит в себе все слова, их перевод и флаги,
+        // которые показывают выучены слова или нет
+        Database database = new Database(this);
+        database.createDatabase();
 
         InputStream fileInputStream =
-                this.getResources().openRawResource(R.raw.dictionary2);
+                this.getResources().openRawResource(R.raw.dictionary);
         BufferedReader bufferedReader =
                 new BufferedReader(new InputStreamReader(fileInputStream));
 
@@ -67,10 +63,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         List<String> list;
 
+        int i = 1;
         while (line != null) {
             list = new ArrayList<>(Arrays.asList(line.split("#")));
+            System.out.println(i);
             database.addWord(list.get(0), list.get(1), "no");
             line = bufferedReader.readLine();
+            i++;
         }
         bufferedReader.close();
     }

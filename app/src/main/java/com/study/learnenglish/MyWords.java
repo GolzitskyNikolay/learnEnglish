@@ -1,4 +1,4 @@
-package com.example.learnenglish;
+package com.study.learnenglish;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -12,7 +12,7 @@ public class MyWords extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_words);
 
-        Cursor cursor = new Database(this).getLearnedWords();
+        Cursor cursor = new Database(this).getKindWords("yes");
         cursor.moveToFirst();
 
         // добавляем в изученные слова новые

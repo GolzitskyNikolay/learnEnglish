@@ -1,4 +1,4 @@
-package com.example.learnenglish;
+package com.study.learnenglish;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
