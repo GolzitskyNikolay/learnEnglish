@@ -28,4 +28,5 @@
     <string name="settings_name">Настройки</string>
     <string name="test_name">Тест</string>
     <string name="end">Слова закончились!\nЧтобы провести тест\nвыучите новые слова\nили повторите невыученные!\n^_^</string>
+    <string name="description">picture_for_menu</string>
 </resources>
