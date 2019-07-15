@@ -33,27 +33,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/name3"
-        android:fillViewport="true"
-        android:gravity="center"
         android:scrollbars="none">
 
         <RelativeLayout
-            android:id="@+id/settings_relative_layout2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="400dp"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/text_with_seekBar"
+                android:src="@drawable/settings_city" />
 
             <TextView
                 android:id="@+id/count_of_words"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@id/city"
-                android:layout_alignLeft="@id/city"
-                android:layout_alignEnd="@id/city"
-                android:layout_alignRight="@id/city"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:gravity="center"
                 android:text="@string/count_of_words"
                 android:textSize="20sp" />
@@ -69,7 +71,7 @@
                 android:layout_alignRight="@id/count_of_words"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="50dp"
                 android:max="19"
                 android:progress="1" />
 
@@ -84,15 +86,8 @@
                 android:textColor="@color/darkBlue"
                 android:textSize="24sp" />
 
-            <ImageView
-                android:id="@+id/city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_with_seekBar"
-                android:scaleType="fitStart"
-                android:src="@drawable/settings_city" />
-
         </RelativeLayout>
+
     </ScrollView>
 
 </RelativeLayout>
