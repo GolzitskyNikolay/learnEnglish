@@ -1,4 +1,4 @@
-package com.study.learnenglish;
+package com.example.learnenglish;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

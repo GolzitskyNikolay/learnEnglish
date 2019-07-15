@@ -72,7 +72,7 @@ public class Dictionary extends Activity implements View.OnClickListener {
                 translate.startAnimation(animation);
                 translate.setTextColor(getResources().getColor(R.color.colorAccent));
             }
-        } else if (v.getId() == R.id.back_button_dictionary){
+        } else if (v.getId() == R.id.back_button_dictionary) {
             finish();
         }
     }
@@ -83,7 +83,9 @@ public class Dictionary extends Activity implements View.OnClickListener {
             StringBuilder showTranslate = new StringBuilder();
             while (cursor.getPosition() < cursor.getCount()) {
                 showTranslate.append(cursor.getString(2));
-                showTranslate.append("; ");
+                if (cursor.getCount() != 1 && cursor.getPosition() != cursor.getCount() - 1) {
+                    showTranslate.append("; ");
+                }
                 cursor.moveToNext();
             }
             translate.setText(showTranslate);

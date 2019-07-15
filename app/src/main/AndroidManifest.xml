@@ -22,11 +22,15 @@
 
         <activity android:name="com.example.learnenglish.LearnWords" />
 
-        <activity android:name="com.example.learnenglish.Test" />
+        <activity
+            android:name="com.example.learnenglish.Test"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
 
         <activity android:name="com.example.learnenglish.MyWords" />
 
-        <activity android:name="com.example.learnenglish.Dictionary" />
+        <activity
+            android:name="com.example.learnenglish.Dictionary"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
 
         <activity android:name="com.example.learnenglish.Settings" />
 
