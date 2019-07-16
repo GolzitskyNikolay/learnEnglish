@@ -18,9 +18,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.learnenglish.MainActivity" />
+        <activity
+            android:name="com.example.learnenglish.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
 
         <activity android:name="com.example.learnenglish.LearnWords" />
+
+        <activity
+            android:name="com.example.learnenglish.ChooseTest"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
 
         <activity
             android:name="com.example.learnenglish.Test"

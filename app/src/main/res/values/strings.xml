@@ -2,12 +2,12 @@
 <resources>
     <string name="app_name">Learn English </string>
     <string name="learn_words">Учить слова\t</string>
-    <string name="test">Тест\t\t</string>
-    <string name="dictionary">Словарь\t</string>
+    <string name="test">Тест</string>
+    <string name="dictionary">Словарь</string>
     <string name="my_words">Мои слова</string>
     <string name="settings">Настройки</string>
     <string name="learn_words_name">Учим слова</string>
-    <string name="word">Слово </string>
+    <string name="word">Слово</string>
     <string name="translate"> Word  </string>
     <string name="next_word">Дальше</string>
     <string name="count_of_words">Выберите сколько слов вам удобно изучать в день:</string>
@@ -23,10 +23,18 @@
     <string name="test_1st_text">Введите перевод слова:</string>
     <string name="check">Проверить</string>
     <string name="enter_translate">Введите перевод</string>
-    <string name="test_begin">Вы пока что не учили слова, чтобы сделать это зайдите в раздел \"Учить слова\"</string>
+    <string name="test_begin">Тест будет доступен после того, как вы запомните слова
+        в пункте \"Учить слова\"</string>
     <string name="name_dictionary">Словарь</string>
     <string name="settings_name">Настройки</string>
     <string name="test_name">Тест</string>
-    <string name="end">Слова закончились!\nЧтобы провести тест\nвыучите новые слова\nили повторите невыученные!\n^_^</string>
     <string name="description">picture_for_menu</string>
+    <string name="new_words">По новым словам</string>
+    <string name="old_words">по выученным словам</string>
+    <string name="first_launch">Здравствуйте, дорогой пользователь!\n\nПеред тем, как начать обучение,
+        пожалуйста, выберите в настройках удобное для вас количество слов к изучению.
+        После того, как вы достигните этого количества - данный пункт будет закрыт до
+        следующего дня.\n\nЖелаем вам успехов!"</string>
+    <string name="go_to_settings">Перейти в настройки</string>
+    <string name="learn">учить</string>
 </resources>

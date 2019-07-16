@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/name_choose_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkBlue"
+        android:drawableTop="@drawable/logo"
+        android:gravity="center"
+        android:text="@string/test_name"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+    <ImageButton
+        android:id="@+id/back_button_choose_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/back_button_background"
+        android:scaleType="fitCenter"
+        android:src="@drawable/back" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name_choose_test"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/test_new_words"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@id/test_old_words"
+                android:layout_alignLeft="@id/test_old_words"
+                android:layout_alignEnd="@id/test_old_words"
+                android:layout_alignRight="@id/test_old_words"
+                android:layout_marginTop="80dp"
+                android:background="@drawable/button_background"
+                android:paddingLeft="10dp"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/new_words" />
+
+            <Button
+                android:id="@+id/test_old_words"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/test_new_words"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/button_background"
+                android:paddingLeft="10dp"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/old_words" />
+
+            <ImageView
+                android:id="@+id/old_words_closed"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignStart="@id/test_old_words"
+                android:layout_alignLeft="@id/test_old_words"
+                android:layout_alignBottom="@id/test_old_words"
+                android:layout_marginStart="-50dp"
+                android:layout_marginLeft="-50dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/closed" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/test_old_words"
+                android:layout_marginTop="20dp"
+                android:src = "@drawable/city_eng"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

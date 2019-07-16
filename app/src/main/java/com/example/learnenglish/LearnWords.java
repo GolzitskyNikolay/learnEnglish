@@ -1,21 +1,25 @@
 package com.example.learnenglish;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.Locale;
 
 public class LearnWords extends Activity implements View.OnClickListener {
 
     private TextView howManyWordsWatched;
-    private SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+    SharedPreferences preferences;
     private int currentCountOfWords;
     private int countOfWordsInDay;
     private TextView showRusWord;
@@ -30,23 +34,66 @@ public class LearnWords extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_words);
 
-        showRusWord = findViewById(R.id.word);
-        showEngWord = findViewById(R.id.show_translate);
-        howManyWordsWatched = findViewById(R.id.howManyWordsWatched);
         nextWord = findViewById(R.id.next_word);
-        database = new Database(this);
 
         //ссылаемся на объект, который может быть использован для чтения и записи
         //в файл настроек по умолчанию
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        // создаём объект Editor для записи в файл настроек
+        editor = preferences.edit();
+
+        // при первом запуске рекомендуется выбрать количество слов к изучению
+        if (preferences.getBoolean("firstLaunch", true)) {
+            showRecommendation();
+        } else {
+            startStudy();
+        }
+    }
+
+    private void showRecommendation() {
+        nextWord.setVisibility(View.INVISIBLE);
+        findViewById(R.id.park).setVisibility(View.INVISIBLE);
+        findViewById(R.id.first_launch).setVisibility(View.VISIBLE);
+        final Button goToSettings = findViewById(R.id.go_to_settings);
+        final Button next = findViewById(R.id.next);
+        next.setVisibility(View.VISIBLE);
+        goToSettings.setVisibility(View.VISIBLE);
+
+        editor.putBoolean("firstLaunch", false);
+        editor.apply();
+
+        goToSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LearnWords.this, Settings.class));
+            }
+        });
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextWord.setVisibility(View.VISIBLE);
+                findViewById(R.id.park).setVisibility(View.VISIBLE);
+                findViewById(R.id.first_launch).setVisibility(View.INVISIBLE);
+                goToSettings.setVisibility(View.INVISIBLE);
+                next.setVisibility(View.INVISIBLE);
+
+                startStudy();
+            }
+        });
+    }
+
+    private void startStudy() {
+        showRusWord = findViewById(R.id.word);
+        showEngWord = findViewById(R.id.show_translate);
+        howManyWordsWatched = findViewById(R.id.howManyWordsWatched);
+        database = new Database(this);
 
         // количество слов, которые пользователь учил за день
         currentCountOfWords = preferences.getInt("currentCountOfWords", 0);
-
         // из настроек получаем количество слов для изучения,
         // которое выбрал для себя пользователь
         countOfWordsInDay = preferences.getInt("count of words", 5);
-
 
         // получаем дату, когда последний раз пользователь изучал слова
         int lastDateWhenEntered = preferences.getInt("last date", 0);
@@ -55,12 +102,16 @@ public class LearnWords extends Activity implements View.OnClickListener {
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         currentDate = Integer.parseInt(dateFormat.format(new Date()));
 
-        if (currentCountOfWords < countOfWordsInDay) {
+        if (currentCountOfWords < countOfWordsInDay &&
+                !preferences.getBoolean("hasLimit", false)) {
             showWordAndTranslate();
+
         } else if (currentDate > lastDateWhenEntered) {
             // наступил новый день => можно снова учить слова
             currentCountOfWords = 0;
+            editor.putBoolean("hasLimit", false);
             showWordAndTranslate();
+
         } else {
             //ограничение на изучение до конца дня
             showRusWord.setText("");
@@ -83,9 +134,6 @@ public class LearnWords extends Activity implements View.OnClickListener {
             currentCountOfWords++;
             showHowManyWordsWatched();
 
-            // создаём объект Editor для записи в файл настроек
-            SharedPreferences.Editor editor = preferences.edit();
-
             //количество слов в день не достигнуто, продолжаем изучение
             if (currentCountOfWords < countOfWordsInDay) {
                 cursor.moveToNext();
@@ -100,6 +148,10 @@ public class LearnWords extends Activity implements View.OnClickListener {
                 showEngWord.setText("");
                 findViewById(R.id.show_recommendation).setVisibility(View.VISIBLE);
                 nextWord.setVisibility(View.INVISIBLE);
+
+                //сегодня больше слова учить не получится
+                editor.putBoolean("hasLimit", true);
+                editor.apply();
             }
             editor.putInt("currentCountOfWords", currentCountOfWords);
             editor.putInt("last date", currentDate);

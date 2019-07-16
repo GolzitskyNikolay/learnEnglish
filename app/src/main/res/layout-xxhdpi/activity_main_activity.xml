@@ -36,8 +36,32 @@
                 android:scaleType="fitEnd"
                 android:src="@drawable/main_activity_london" />
 
+            <ImageView
+                android:id="@+id/menu_test_closed"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_alignStart="@id/menu_test"
+                android:layout_alignLeft="@id/menu_test"
+                android:layout_alignBottom="@id/menu_test"
+                android:layout_marginStart="-60dp"
+                android:layout_marginLeft="-60dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/closed" />
+
+            <ImageView
+                android:id="@+id/menu_my_words_closed"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_alignStart="@id/my_words"
+                android:layout_alignLeft="@id/my_words"
+                android:layout_alignBottom="@id/my_words"
+                android:layout_marginStart="-60dp"
+                android:layout_marginLeft="-60dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/closed" />
+
             <Button
-                android:id="@+id/test"
+                android:id="@+id/menu_test"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_below="@id/learn_words"
@@ -50,6 +74,10 @@
                 android:background="@drawable/button_background"
                 android:drawableStart="@drawable/test"
                 android:drawableLeft="@drawable/test"
+                android:paddingStart="5dp"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="5dp"
                 android:text="@string/test"
                 android:textSize="21sp" />
 
@@ -63,6 +91,9 @@
                 android:drawableStart="@drawable/learn_words"
                 android:drawableLeft="@drawable/learn_words"
                 android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingLeft="5dp"
+                android:paddingEnd="5dp"
                 android:text="@string/learn_words"
                 android:textSize="21sp" />
 
@@ -70,7 +101,7 @@
                 android:id="@+id/my_words"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:layout_below="@id/test"
+                android:layout_below="@id/menu_test"
                 android:layout_alignStart="@id/learn_words"
                 android:layout_alignLeft="@id/learn_words"
                 android:layout_alignEnd="@id/learn_words"
@@ -80,6 +111,9 @@
                 android:background="@drawable/button_background"
                 android:drawableStart="@drawable/my_words"
                 android:drawableLeft="@drawable/my_words"
+                android:paddingStart="5dp"
+                android:paddingLeft="5dp"
+                android:paddingEnd="5dp"
                 android:text="@string/my_words"
                 android:textSize="21sp" />
 
@@ -97,6 +131,9 @@
                 android:background="@drawable/button_background"
                 android:drawableStart="@drawable/dictionary"
                 android:drawableLeft="@drawable/dictionary"
+                android:paddingStart="5dp"
+                android:paddingLeft="5dp"
+                android:paddingEnd="5dp"
                 android:text="@string/dictionary"
                 android:textSize="21sp" />
 
@@ -114,6 +151,9 @@
                 android:background="@drawable/button_background"
                 android:drawableStart="@drawable/settings"
                 android:drawableLeft="@drawable/settings"
+                android:paddingStart="5dp"
+                android:paddingLeft="5dp"
+                android:paddingEnd="5dp"
                 android:text="@string/settings"
                 android:textSize="21sp" />
 

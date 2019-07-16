@@ -21,9 +21,6 @@ public class MyWords extends Activity implements View.OnClickListener {
             TextView view = findViewById(R.id.all_my_words);
             StringBuilder newText = new StringBuilder();
 
-            if (String.valueOf(view.getText()).equals("У вас нет выученных слов")) {
-                view.setText("");
-            }
             newText.append(view.getText());
             for (int i = 1; i <= cursor.getCount(); i++) {
                 newText.append("\n");
