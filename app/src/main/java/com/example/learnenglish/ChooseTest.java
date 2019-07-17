@@ -68,45 +68,53 @@ public class ChooseTest extends Activity implements View.OnClickListener {
     public void onResume() {
         super.onResume();
 
-        if (preferences.getBoolean("openOldWords", true) &&
-                database.getKindWords("yes").getCount() >= 5) {
+        // если после теста была нажата кнопка "Главное меню"
+        if (preferences.getBoolean("toMenu", false)) {
+            editor.putBoolean("toMenu", false);
+            editor.apply();
+            finish();
 
-            // подключаем анимацию
-            Animation openLock = AnimationUtils.loadAnimation(this, R.anim.anim_open);
-            final Animation disappear =
-                    AnimationUtils.loadAnimation(this, R.anim.anim_disappear);
-            lock.startAnimation(openLock);
+        } else {
+            if (preferences.getBoolean("openOldWords", true) &&
+                    database.getKindWords("yes").getCount() >= 5) {
 
-            openLock.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    // на время анимации запрещаем нажимать кнопки
-                    backButton.setEnabled(false);
-                    newWords.setEnabled(false);
-                    oldWords.setEnabled(false);
-                }
+                // подключаем анимацию
+                Animation openLock = AnimationUtils.loadAnimation(this, R.anim.anim_open);
+                final Animation disappear =
+                        AnimationUtils.loadAnimation(this, R.anim.anim_disappear);
+                lock.startAnimation(openLock);
 
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    // "открываем" замок и прячем его
-                    lock.setImageResource(R.drawable.opened);
-                    lock.startAnimation(disappear);
-                    lock.setVisibility(View.INVISIBLE);
+                openLock.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        // на время анимации запрещаем нажимать кнопки
+                        backButton.setEnabled(false);
+                        newWords.setEnabled(false);
+                        oldWords.setEnabled(false);
+                    }
 
-                    // разрешаем нажимать кнопки
-                    backButton.setEnabled(true);
-                    newWords.setEnabled(true);
-                    oldWords.setEnabled(true);
-                }
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        // "открываем" замок и прячем его
+                        lock.setImageResource(R.drawable.opened);
+                        lock.startAnimation(disappear);
+                        lock.setVisibility(View.INVISIBLE);
 
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-            });
+                        // разрешаем нажимать кнопки
+                        backButton.setEnabled(true);
+                        newWords.setEnabled(true);
+                        oldWords.setEnabled(true);
+                    }
 
-            // больше анимации не будет
-            editor.putBoolean("openOldWords", false);
-            oldWords.setOnClickListener(this);
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                    }
+                });
+
+                // больше анимации не будет
+                editor.putBoolean("openOldWords", false);
+                oldWords.setOnClickListener(this);
+            }
         }
     }
 

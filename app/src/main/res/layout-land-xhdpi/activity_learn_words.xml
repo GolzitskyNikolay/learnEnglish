@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/name2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkBlue"
+        android:drawableTop="@drawable/logo"
+        android:gravity="center"
+        android:text="@string/learn_words_name"
+        android:textColor="#ffffff"
+        android:textSize="25sp" />
+
+    <ImageButton
+        android:id="@+id/back_button_learnWords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/back_button_background"
+        android:scaleType="fitCenter"
+        android:src="@drawable/back" />
+
+    <TextView
+        android:id="@+id/howManyWordsWatched"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name2"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/howManyWordsWatched"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/show_translate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/word"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/show_recommendation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/word"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:paddingLeft="35dp"
+        android:paddingRight="35dp"
+        android:text="@string/recommendation"
+        android:textSize="20sp"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/next_word"
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/show_translate"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button_background"
+        android:drawableStart="@drawable/learn_words"
+        android:drawableLeft="@drawable/learn_words"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/next_word"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/first_launch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name2"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/first_launch"
+        android:textSize="20sp"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/go_to_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/first_launch"
+        android:layout_alignEnd="@id/next_word"
+        android:layout_alignRight="@id/next_word"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
+        android:background="@drawable/button_background"
+        android:drawableStart="@drawable/settings"
+        android:drawableLeft="@drawable/settings"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:text="@string/settings"
+        android:textSize="16sp"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/first_launch"
+        android:layout_alignStart="@id/next_word"
+        android:layout_alignLeft="@id/next_word"
+        android:layout_marginStart="120dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/button_background"
+        android:drawableStart="@drawable/learn_words"
+        android:drawableLeft="@drawable/learn_words"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:text="@string/learn"
+        android:textSize="16sp"
+        android:visibility="invisible" />
+
+</RelativeLayout>

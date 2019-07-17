@@ -20,6 +20,7 @@ public class Test extends Activity implements View.OnClickListener {
     Animation anim_incorrect;
     double countOfRightAnswers;
     Animation anim_correct;
+    String kindOfWords;
     String rightAnswer;
     EditText translate;
     Database database;
@@ -33,7 +34,7 @@ public class Test extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_test);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String kindOfWords = preferences.getString("newWords", "almost");
+        kindOfWords = preferences.getString("newWords", "almost");
 
         // получаем слова, знание которых нужно проверить у пользователя
         database = new Database(this);
@@ -108,7 +109,7 @@ public class Test extends Activity implements View.OnClickListener {
             @Override
             public void onAnimationStart(Animation animation) {
                 translate.setEnabled(false);
-                translate.setTextColor(getResources().getColor(R.color.dark_green));
+                translate.setTextColor(getResources().getColor(R.color.darkGreen));
                 translate.getBackground().setColorFilter(getResources()
                         .getColor(R.color.lightBlue), PorterDuff.Mode.SRC_IN);
                 translate.setText(rightAnswer);
@@ -173,7 +174,7 @@ public class Test extends Activity implements View.OnClickListener {
             translate.setText("");
         } else {
             findViewById(R.id.test_relative_layout)
-                    .setBackgroundColor(getResources().getColor(R.color.white));
+                    .setBackgroundColor(getResources().getColor(R.color.white_blue));
 
             ImageView leftStar = findViewById(R.id.left_star);
             final ImageView centralStar = findViewById(R.id.central_star);
@@ -197,6 +198,7 @@ public class Test extends Activity implements View.OnClickListener {
         double mark = countOfRightAnswers / cursor.getCount() * 100;
 
         TextView text = findViewById(R.id.mark);
+        text.setVisibility(View.VISIBLE);
 
         StringBuilder result = new StringBuilder();
         result.append("Вы ответили правильно на \n");
@@ -225,8 +227,8 @@ public class Test extends Activity implements View.OnClickListener {
             centralStar.setImageResource(R.drawable.star_yellow);
 
         } else {
-            text.setText("Отлично");
-            text.setTextColor(getResources().getColor(R.color.light_green));
+            text.setText("Отлично!");
+            text.setTextColor(getResources().getColor(R.color.oliveGreen));
             result.append("Поздравляем, вы успешно справились с заданием!");
             leftStar.setImageResource(R.drawable.green_star);
             centralStar.setImageResource(R.drawable.green_star);
@@ -238,6 +240,7 @@ public class Test extends Activity implements View.OnClickListener {
         button.setVisibility(View.INVISIBLE);
 
         TextView end = findViewById(R.id.end);
+        end.setVisibility(View.VISIBLE);
         end.setText(result);
     }
 
@@ -250,15 +253,15 @@ public class Test extends Activity implements View.OnClickListener {
 
         // Анимация появления первой звезды и начало вызов средней
         Animation startLeft = AnimationUtils
-                .loadAnimation(this, R.anim.anim_fast_appear_and_jump);
+                .loadAnimation(this, R.anim.anim_fast_appear_and_jump_down);
 
         // Анимация вызова средней звезды
         final Animation startCentral = AnimationUtils
-                .loadAnimation(this, R.anim.anim_fast_appear_and_jump);
+                .loadAnimation(this, R.anim.anim_fast_appear_and_jump_down);
 
         // Анимация вызова правой звезды
         final Animation startRight = AnimationUtils
-                .loadAnimation(this, R.anim.anim_fast_appear_and_jump);
+                .loadAnimation(this, R.anim.anim_fast_appear_and_jump_down);
 
         startLeft.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -293,8 +296,79 @@ public class Test extends Activity implements View.OnClickListener {
             }
         });
 
+        startRight.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                buttonsAfterTest(leftStar, centralStar, rightStar);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+
         // начинаем череду анимаций
         leftStar.startAnimation(startLeft);
+    }
+
+    private void buttonsAfterTest(final ImageView leftStar, final ImageView centralStar,
+                                  final ImageView rightStar) {
+
+        Animation appear =
+                AnimationUtils.loadAnimation(this, R.anim.anim_fast_appear_and_jump_up);
+
+        final Button goTOMenu = findViewById(R.id.menu);
+        goTOMenu.setVisibility(View.VISIBLE);
+        goTOMenu.startAnimation(appear);
+
+        // идём в главное меню
+        goTOMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences preferences =
+                        PreferenceManager.getDefaultSharedPreferences(Test.this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("toMenu", true);
+                editor.apply();
+                finish();
+            }
+        });
+
+        final Button repeatTest = findViewById(R.id.repeat);
+
+        database = new Database(this);
+        cursor = database.getKindWords(kindOfWords);
+
+        if (cursor.getCount() != 0) {
+            repeatTest.setVisibility(View.VISIBLE);
+            repeatTest.startAnimation(appear);
+
+            // повторяем тест
+            repeatTest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    translate.setText("");
+
+                    goTOMenu.setVisibility(View.INVISIBLE);
+                    repeatTest.setVisibility(View.INVISIBLE);
+                    leftStar.setVisibility(View.INVISIBLE);
+                    centralStar.setVisibility(View.INVISIBLE);
+                    rightStar.setVisibility(View.INVISIBLE);
+                    findViewById(R.id.mark).setVisibility(View.INVISIBLE);
+                    findViewById(R.id.end).setVisibility(View.INVISIBLE);
+
+                    countOfRightAnswers = 0;
+                    findViewById(R.id.test_relative_layout)
+                            .setBackgroundColor(getResources().getColor(R.color.lightBlue));
+                    startTest();
+                }
+            });
+        }
     }
 }
 
