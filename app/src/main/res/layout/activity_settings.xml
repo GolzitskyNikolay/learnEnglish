@@ -41,10 +41,11 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_centerHorizontal="true"
-                android:scaleType="fitCenter"
+                android:layout_height="450dp"
+                android:layout_below="@id/count_of_words"
+                android:layout_marginTop="-20dp"
+                android:padding="10dp"
+                android:scaleType="fitEnd"
                 android:src="@drawable/settings_city" />
 
             <TextView
