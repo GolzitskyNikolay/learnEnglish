@@ -39,4 +39,8 @@
     <string name="learn">учить</string>
     <string name="menu">Главное меню</string>
     <string name="repeat">Повтор</string>
+    <string name="back_button">back_button</string>
+    <string name="lock">lock</string>
+    <string name="background">background</string>
+    <string name="star">star</string>
 </resources>

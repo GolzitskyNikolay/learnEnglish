@@ -13,10 +13,9 @@ public class MyWords extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_words);
 
-        Cursor cursor = new Database(this).getKindWords("yes");
+        Cursor cursor = new Database(this).getKindOfWords("yes");
         cursor.moveToFirst();
 
-        // добавляем в изученные слова новые
         if (cursor.getCount() != 0) {
             TextView view = findViewById(R.id.all_my_words);
             StringBuilder newText = new StringBuilder();

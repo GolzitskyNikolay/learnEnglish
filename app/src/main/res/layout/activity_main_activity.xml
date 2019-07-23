@@ -82,6 +82,7 @@
                 android:layout_marginStart="-50dp"
                 android:layout_marginLeft="-50dp"
                 android:layout_marginBottom="5dp"
+                android:contentDescription="@string/lock"
                 android:src="@drawable/closed" />
 
             <ImageView
@@ -94,6 +95,7 @@
                 android:layout_marginStart="-50dp"
                 android:layout_marginLeft="-50dp"
                 android:layout_marginBottom="5dp"
+                android:contentDescription="@string/lock"
                 android:src="@drawable/closed" />
 
             <Button

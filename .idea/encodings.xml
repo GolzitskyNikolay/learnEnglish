@@ -8,8 +8,33 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/learnenglish/MyWords.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/learnenglish/SplashScreen.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/learnenglish/Test.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/a.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/b.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/c.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/d.txt" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/raw/dictionary.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/to_sort_it.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/e.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/f.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/g.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/h.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/i.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/j.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/k.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/l.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/m.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/n.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/o.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/p.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/q.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/r.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/s.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/t.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/u.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/v.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/w.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/x.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/y.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/z.txt" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

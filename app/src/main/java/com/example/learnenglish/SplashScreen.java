@@ -9,8 +9,6 @@ public class SplashScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // экран загрузки будет показываться столько, сколько
-        // необходимо времени для загрузки, после чего откроется главное активити
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();

@@ -55,7 +55,6 @@ public class Dictionary extends Activity implements View.OnClickListener {
 
             String string = String.valueOf(word.getText());
 
-            //ищем перевод слова в базе данных, если оно введено корректно
             if (string.toLowerCase().matches(" *[a-z]+([ |\\-][a-z]+)*")) {
                 cursor = database.getRusByEng(string);
                 showTranslate();
@@ -68,7 +67,6 @@ public class Dictionary extends Activity implements View.OnClickListener {
                 } else {
                     translate.setText("Слово введено\n  некорректно!");
                 }
-                // подключаем файл анимации
                 translate.startAnimation(animation);
                 translate.setTextColor(getResources().getColor(R.color.colorAccent));
             }

@@ -29,7 +29,6 @@ public class ChooseTest extends Activity implements View.OnClickListener {
 
         database = new Database(this);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        editor = preferences.edit();
 
         backButton = findViewById(R.id.back_button_choose_test);
         newWords = findViewById(R.id.test_new_words);
@@ -58,8 +57,8 @@ public class ChooseTest extends Activity implements View.OnClickListener {
     }
 
     private void chooseKindOfWords(String kindOfWords) {
+        editor = preferences.edit();
         editor.putString("newWords", kindOfWords);
-        //сохраняем
         editor.apply();
         startActivity(new Intent(this, Test.class));
     }
@@ -67,8 +66,8 @@ public class ChooseTest extends Activity implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        editor = preferences.edit();
 
-        // если после теста была нажата кнопка "Главное меню"
         if (preferences.getBoolean("toMenu", false)) {
             editor.putBoolean("toMenu", false);
             editor.apply();
@@ -76,9 +75,8 @@ public class ChooseTest extends Activity implements View.OnClickListener {
 
         } else {
             if (preferences.getBoolean("openOldWords", true) &&
-                    database.getKindWords("yes").getCount() >= 5) {
+                    database.getKindOfWords("yes").getCount() >= 5) {
 
-                // подключаем анимацию
                 Animation openLock = AnimationUtils.loadAnimation(this, R.anim.anim_open);
                 final Animation disappear =
                         AnimationUtils.loadAnimation(this, R.anim.anim_disappear);
@@ -87,7 +85,6 @@ public class ChooseTest extends Activity implements View.OnClickListener {
                 openLock.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
-                        // на время анимации запрещаем нажимать кнопки
                         backButton.setEnabled(false);
                         newWords.setEnabled(false);
                         oldWords.setEnabled(false);
@@ -95,12 +92,10 @@ public class ChooseTest extends Activity implements View.OnClickListener {
 
                     @Override
                     public void onAnimationEnd(Animation animation) {
-                        // "открываем" замок и прячем его
                         lock.setImageResource(R.drawable.opened);
                         lock.startAnimation(disappear);
                         lock.setVisibility(View.INVISIBLE);
 
-                        // разрешаем нажимать кнопки
                         backButton.setEnabled(true);
                         newWords.setEnabled(true);
                         oldWords.setEnabled(true);
@@ -111,7 +106,6 @@ public class ChooseTest extends Activity implements View.OnClickListener {
                     }
                 });
 
-                // больше анимации не будет
                 editor.putBoolean("openOldWords", false);
                 oldWords.setOnClickListener(this);
             }

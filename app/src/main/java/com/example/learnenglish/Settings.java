@@ -24,12 +24,9 @@ public class Settings extends Activity implements View.OnClickListener {
         findViewById(R.id.back_button_settings).setOnClickListener(this);
 
         SeekBar seekBar = findViewById(R.id.seek_bar);
-        //меняем цвет полоски
         seekBar.getProgressDrawable().setColorFilter(ContextCompat.getColor(getBaseContext(),
                 R.color.darkBlue), PorterDuff.Mode.SRC_ATOP);
 
-        //ссылаемся на объект, который может быть использован для чтения и записи
-        //в файл настроек по умолчанию
         myPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         int count = myPreferences.getInt("count of words", 5);
 
@@ -52,10 +49,8 @@ public class Settings extends Activity implements View.OnClickListener {
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    // создаём объект Editor для записи в файл настроек
                     SharedPreferences.Editor editor = myPreferences.edit();
                     editor.putInt("count of words", seekBar.getProgress() + 1);
-                    //сохраняем все добавленные пары
                     editor.apply();
                 }
             };

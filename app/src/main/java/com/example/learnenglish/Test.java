@@ -36,9 +36,8 @@ public class Test extends Activity implements View.OnClickListener {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         kindOfWords = preferences.getString("newWords", "almost");
 
-        // получаем слова, знание которых нужно проверить у пользователя
         database = new Database(this);
-        cursor = database.getKindWords(kindOfWords);
+        cursor = database.getKindOfWords(kindOfWords);
 
         assert kindOfWords != null;
         if (cursor.getCount() != 0) {
@@ -47,10 +46,8 @@ public class Test extends Activity implements View.OnClickListener {
         countOfRightAnswers = 0;
     }
 
-    // начинаем тест
     private void startTest() {
 
-        //добавляем для кнопки переход в главное меню
         findViewById(R.id.back_button_test).setOnClickListener(this);
 
         cursor.moveToFirst();
@@ -63,30 +60,22 @@ public class Test extends Activity implements View.OnClickListener {
         translate.setVisibility(View.VISIBLE);
         button.setVisibility(View.VISIBLE);
 
-        //выводим на экран слово, которое надо перевести
         word.setText(cursor.getString(1));
 
-        //анимация для слова, которое введено некорректно
         incorrect_enter = AnimationUtils.loadAnimation(this, R.anim.anim_incorrect_enter);
-        //анимация для неверного ответа
         anim_incorrect = AnimationUtils.loadAnimation(this, R.anim.anim_disappear);
-        //анимация для правильного ответа
         anim_correct = AnimationUtils.loadAnimation(this, R.anim.anim_appear);
-        //добавляем к анимации Listener, чтобы она была последовательной
         addListeners();
 
     }
 
     private void addListeners() {
 
-        //добавляем проверку и переход на следующее слово
         button.setOnClickListener(this);
 
-        //добавляем Listener для неправильного ответа
         anim_incorrect.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                // показываем, что слово введено неверно
                 translate.setTextColor(getResources().getColor(R.color.colorAccent));
                 translate.setEnabled(false);
                 translate.getBackground().setColorFilter(getResources().
@@ -95,7 +84,6 @@ public class Test extends Activity implements View.OnClickListener {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                //показываем ответ
                 translate.startAnimation(anim_correct);
             }
 
@@ -104,7 +92,6 @@ public class Test extends Activity implements View.OnClickListener {
             }
         });
 
-        //добавляем Listener для правильного ответа
         anim_correct.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -135,7 +122,6 @@ public class Test extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.test_button) {
 
-            //если слово не введено, то подключаем анимацию слова, введённого некорректно
             if (translate.getText().toString().matches(" *")) {
                 translate.setText("");
                 translate.startAnimation(incorrect_enter);
@@ -143,30 +129,21 @@ public class Test extends Activity implements View.OnClickListener {
             } else {
                 rightAnswer = cursor.getString(2);
                 button.setVisibility(View.INVISIBLE);
-                // если перевод слова введён верно, то добавляем его в выученные
                 if (String.valueOf(translate.getText()).toLowerCase().equals(rightAnswer)) {
                     database.changeLearned(cursor.getInt(0), cursor.getString(1),
                             cursor.getString(2), "yes");
-                    // показываем анимацию, для которой слово введено верно
                     translate.startAnimation(anim_correct);
                     countOfRightAnswers++;
                 } else {
-                    //пользователь ответил неверно - пусть повторяет слово,
-                    // показываем анимацию для слова, введённого неверно
                     translate.startAnimation(anim_incorrect);
                 }
             }
 
         } else if (v.getId() == R.id.back_button_test) {
-            //переход в главное меню
             finish();
         }
     }
 
-    /**
-     * Если неизученные слова есть, то показываем следующее слово,
-     * для которого нужно ввести перевод. А если их нет - пишем, что они закончились.
-     */
     private void showNextWord() {
         if (cursor.getPosition() != cursor.getCount() - 1) {
             cursor.moveToNext();
@@ -180,21 +157,14 @@ public class Test extends Activity implements View.OnClickListener {
             final ImageView centralStar = findViewById(R.id.central_star);
             final ImageView rightStar = findViewById(R.id.right_star);
 
-            // показываем оценку
             showMark(leftStar, centralStar, rightStar);
 
-            // подключаем появление звёзд
             startAnimation(leftStar, centralStar, rightStar);
         }
     }
 
-    /**
-     * Показываем результат теста и меняем изображения звёзд
-     * в зависимости от результата.
-     */
     private void showMark(ImageView leftStar, ImageView centralStar, ImageView rightStar) {
 
-        // оценка в процентах
         double mark = countOfRightAnswers / cursor.getCount() * 100;
 
         TextView text = findViewById(R.id.mark);
@@ -244,22 +214,15 @@ public class Test extends Activity implements View.OnClickListener {
         end.setText(result);
     }
 
-    /**
-     * Последовательное появление звёзд, которые
-     * показывают результат прохождения теста
-     */
     private void startAnimation(final ImageView leftStar, final ImageView centralStar,
                                 final ImageView rightStar) {
 
-        // Анимация появления первой звезды и начало вызов средней
         Animation startLeft = AnimationUtils
                 .loadAnimation(this, R.anim.anim_fast_appear_and_jump_down);
 
-        // Анимация вызова средней звезды
         final Animation startCentral = AnimationUtils
                 .loadAnimation(this, R.anim.anim_fast_appear_and_jump_down);
 
-        // Анимация вызова правой звезды
         final Animation startRight = AnimationUtils
                 .loadAnimation(this, R.anim.anim_fast_appear_and_jump_down);
 
@@ -312,7 +275,6 @@ public class Test extends Activity implements View.OnClickListener {
             }
         });
 
-        // начинаем череду анимаций
         leftStar.startAnimation(startLeft);
     }
 
@@ -326,47 +288,39 @@ public class Test extends Activity implements View.OnClickListener {
         goTOMenu.setVisibility(View.VISIBLE);
         goTOMenu.startAnimation(appear);
 
-        // идём в главное меню
-        goTOMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences preferences =
-                        PreferenceManager.getDefaultSharedPreferences(Test.this);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("toMenu", true);
-                editor.apply();
-                finish();
-            }
+        goTOMenu.setOnClickListener(v -> {
+            SharedPreferences preferences =
+                    PreferenceManager.getDefaultSharedPreferences(Test.this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("toMenu", true);
+            editor.apply();
+            finish();
         });
 
         final Button repeatTest = findViewById(R.id.repeat);
 
         database = new Database(this);
-        cursor = database.getKindWords(kindOfWords);
+        cursor = database.getKindOfWords(kindOfWords);
 
         if (cursor.getCount() != 0) {
             repeatTest.setVisibility(View.VISIBLE);
             repeatTest.startAnimation(appear);
 
-            // повторяем тест
-            repeatTest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    translate.setText("");
+            repeatTest.setOnClickListener(v -> {
+                translate.setText("");
 
-                    goTOMenu.setVisibility(View.INVISIBLE);
-                    repeatTest.setVisibility(View.INVISIBLE);
-                    leftStar.setVisibility(View.INVISIBLE);
-                    centralStar.setVisibility(View.INVISIBLE);
-                    rightStar.setVisibility(View.INVISIBLE);
-                    findViewById(R.id.mark).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.end).setVisibility(View.INVISIBLE);
+                goTOMenu.setVisibility(View.INVISIBLE);
+                repeatTest.setVisibility(View.INVISIBLE);
+                leftStar.setVisibility(View.INVISIBLE);
+                centralStar.setVisibility(View.INVISIBLE);
+                rightStar.setVisibility(View.INVISIBLE);
+                findViewById(R.id.mark).setVisibility(View.INVISIBLE);
+                findViewById(R.id.end).setVisibility(View.INVISIBLE);
 
-                    countOfRightAnswers = 0;
-                    findViewById(R.id.test_relative_layout)
-                            .setBackgroundColor(getResources().getColor(R.color.lightBlue));
-                    startTest();
-                }
+                countOfRightAnswers = 0;
+                findViewById(R.id.test_relative_layout)
+                        .setBackgroundColor(getResources().getColor(R.color.lightBlue));
+                startTest();
             });
         }
     }
